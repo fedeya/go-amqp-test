@@ -1,8 +1,6 @@
 package main
 
 import (
-	"sync"
-
 	"github.com/streadway/amqp"
 )
 
@@ -33,13 +31,11 @@ func main() {
 
 	handleError(err)
 
-	wg := &sync.WaitGroup{}
+	forever := make(chan bool)
 
-	wg.Add(2)
+	go Publisher(ch)
+	go Consumer(msgs)
 
-	go Publisher(ch, wg)
-	go Consumer(msgs, wg)
-
-	wg.Wait()
+	<-forever
 
 }

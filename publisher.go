@@ -2,15 +2,12 @@ package main
 
 import (
 	"fmt"
-	"sync"
 	"time"
 
 	"github.com/streadway/amqp"
 )
 
-func Publisher(ch *amqp.Channel, wg *sync.WaitGroup) {
-
-	defer wg.Done()
+func Publisher(ch *amqp.Channel) {
 
 	i := 0
 
